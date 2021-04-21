@@ -23,4 +23,32 @@ class Mapper{
         })
         return sportArray
     }
+    
+    public static func jsonToLeagueList(fromJson json: JSON) -> Array<Any>{
+           
+           var leagueArray = Array<LeagueEntity>()
+           let customarray = json["countrys"].arrayValue
+           customarray.forEach({ json in
+               let league = LeagueEntity()
+               //print(json["strSport"].stringValue)
+               league.leagueBadge = json["strBadge"].stringValue
+               league.leagueName = json["strLeague"].stringValue
+               league.leagueVideoLink = json["strYoutube"].stringValue
+               league.leagueID = json["idLeague"].stringValue
+               leagueArray.append(league)
+           })
+           return leagueArray as Array<LeagueEntity>
+       }
+    
+    public static func jsonToLeaguesList(fromJson jsonArray: [JSON]) -> Array<LeagueEntity>{
+          var leagueArray = Array<LeagueEntity>()
+          jsonArray.forEach({ json in
+              let league = LeagueEntity()
+              league.leagueBadge = json["strBadge"].stringValue
+              league.leagueName = json["strLeague"].stringValue
+              league.leagueVideoLink = json["strYoutube"].stringValue
+              leagueArray.append(league)
+          })
+          return leagueArray
+      }
 }

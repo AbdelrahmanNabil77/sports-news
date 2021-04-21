@@ -14,6 +14,7 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
     var sportsList:Array<SportEntity>?
     var sportPersent:SportsPresent?
     
+   
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -68,10 +69,34 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
             else{
                 cell.sportName.text = sportsList?[indexPath.row].sportName
                 var imageUrl = sportsList?[indexPath.row].sportThumb!
-                       cell.sportImage!.sd_setImage(with: URL(string:imageUrl!), placeholderImage: UIImage(named: ""))
+                       cell.sportImage!.sd_setImage(with: URL(string:imageUrl!), placeholderImage: UIImage(named: "placeholder"))
             }
         return cell
      }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        let leagueStoryBoard = UIStoryboard(name: "LeaguesStoryboard", bundle: nil)
+                let leagueViewController = leagueStoryBoard.instantiateViewController(withIdentifier:
+                    "leaguesTableViewController") as! LeaguesTableViewController
+
+         leagueViewController.isFavouriteTab = false
+         leagueViewController.sportName = sportsList?[indexPath.row].sportName
+         self.navigationController?.pushViewController(leagueViewController, animated: true)
+        print("goToLeagues")
+         return true
+     }
+    
+ 
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//          let leagueStoryBoard = UIStoryboard(name: "LeaguesStoryboard", bundle: nil)
+//                          let leagueViewController = leagueStoryBoard.instantiateViewController(withIdentifier:
+//                              "leaguesTableViewController") as! LeaguesTableViewController
+//
+//                   leagueViewController.isFavouriteTab = false
+//                   leagueViewController.sportName = sportsList?[indexPath.row].sportName
+//                   self.navigationController?.pushViewController(leagueViewController, animated: true)
+//                  print("goToLeagues")
+//    }
   
 
 }
