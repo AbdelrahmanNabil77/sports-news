@@ -75,7 +75,7 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
      }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        let leagueStoryBoard = UIStoryboard(name: "LeaguesStoryboard", bundle: nil)
+        /*let leagueStoryBoard = UIStoryboard(name: "LeaguesStoryboard", bundle: nil)
                 let leagueViewController = leagueStoryBoard.instantiateViewController(withIdentifier:
                     "leaguesTableViewController") as! LeaguesTableViewController
 
@@ -83,7 +83,16 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
          leagueViewController.sportName = sportsList?[indexPath.row].sportName
          self.navigationController?.pushViewController(leagueViewController, animated: true)
         print("goToLeagues")
+         return true*/
+        let leagueStoryBoard = UIStoryboard(name: "LeaguesStoryboard", bundle: nil)
+                let leagueViewController = leagueStoryBoard.instantiateViewController(withIdentifier:
+                    "LeagueDetailsViewController") as! LeagueDetailsViewController
+
+         
+         self.navigationController?.pushViewController(leagueViewController, animated: true)
+        print("goToLeagues")
          return true
+        
      }
     
  
