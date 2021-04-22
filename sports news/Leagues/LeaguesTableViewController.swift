@@ -9,12 +9,17 @@
 import UIKit
 import SDWebImage
 
-class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,LeaguesShowProtocol {
-  
+class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,LeaguesShowProtocol, UISearchBarDelegate {
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     
     @IBOutlet weak var typeOfTab: UILabel!
    
     @IBOutlet weak var tableView: UITableView!
+    
+     var isFiltered : Bool?
+    var filteredArr: Array<LeagueEntity>?
     
     var sportName: String?
     var isFavouriteTab : Bool?
@@ -23,18 +28,22 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isFiltered == false
+        searchBar.delegate = self
         presenterLeague.showLeagues = self
               if let name = sportName {
                   self.typeOfTab?.text = sportName
               } else {
                 self.typeOfTab?.text = "Favourite Sports"
         }
+        filteredArr = leaguesArray
       
     }
        
        func displayLeagues(LeaguesArray array: Array<LeagueEntity>) {
            leaguesArray?.removeAll()
            leaguesArray = array
+           filteredArr = array
            tableView.reloadData()
        }
     
@@ -52,26 +61,28 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
        }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let count = leaguesArray?.count
+        guard let count = filteredArr?.count
                else{
                    return 0
                }
-               return leaguesArray!.count
+               return filteredArr!.count
+        
            
        }
        
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "LeagueCell", for: indexPath) as! LeagueTableViewCell
-               if (leaguesArray?.count) != nil{
-                   cell.leagueName.text = leaguesArray?[indexPath.row].leagueName
+                
+               if (filteredArr?.count) != nil{
+                   cell.leagueName.text = filteredArr?[indexPath.row].leagueName
                    cell.leagueImage.layer.cornerRadius = cell.leagueImage.frame.size.width/2
                     cell.leagueImage.clipsToBounds = true
             
-                var imageUrl = leaguesArray?[indexPath.row].leagueBadge!
+                var imageUrl = filteredArr?[indexPath.row].leagueBadge!
                                      cell.leagueImage!.sd_setImage(with: URL(string:imageUrl!), placeholderImage: UIImage(named: "placeholder"))
                 
-                   cell.leagueEntity = leaguesArray?[indexPath.row]
+                   cell.leagueEntity = filteredArr?[indexPath.row]
                    NotificationCenter.default.addObserver(self, selector: #selector(displayNoLink), name: NSNotification.Name("displayNoLink"), object: nil)
                    cell.youtubeBtn.clipsToBounds =  true
                    cell.youtubeBtn.setImage(UIImage(named: "youtube"),for: .highlighted)
@@ -80,6 +91,39 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
         return cell
       
        }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        isFiltered = true
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+          isFiltered = false
+      }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+           isFiltered = false;
+
+           searchBar.text = nil
+           searchBar.resignFirstResponder()
+           tableView.resignFirstResponder()
+           self.searchBar.showsCancelButton = false
+           tableView.reloadData()
+       }
+
+       func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+           isFiltered = false
+       }
+
+       func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
+                   return true
+       }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        filteredArr = searchText.isEmpty ? leaguesArray : leaguesArray?.filter({ (data) -> Bool in
+            return data.leagueName!.range(of: searchText, options: .caseInsensitive) != nil
+        })
+        self.tableView.reloadData()
+          
+      }
+
     
     @objc func showAlert(Message message : String, Details details : String){
         let alert = UIAlertController(title: message, message: details, preferredStyle: .alert)
