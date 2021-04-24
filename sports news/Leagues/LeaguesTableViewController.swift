@@ -20,6 +20,7 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
     
      var isFiltered : Bool?
     var filteredArr: Array<LeagueEntity>?
+     var league : LeagueEntity?
     
     var sportName: String?
     var isFavouriteTab : Bool?
@@ -78,9 +79,8 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
                    cell.leagueName.text = filteredArr?[indexPath.row].leagueName
                    cell.leagueImage.layer.cornerRadius = cell.leagueImage.frame.size.width/2
                     cell.leagueImage.clipsToBounds = true
-            
-                var imageUrl = filteredArr?[indexPath.row].leagueBadge!
-                                     cell.leagueImage!.sd_setImage(with: URL(string:imageUrl!), placeholderImage: UIImage(named: "placeholder"))
+               var imageUrl = filteredArr?[indexPath.row].leagueBadge!
+                                   cell.leagueImage!.sd_setImage(with: URL(string:imageUrl!), placeholderImage: UIImage(named: "placeholder"))
                 
                    cell.leagueEntity = filteredArr?[indexPath.row]
                    NotificationCenter.default.addObserver(self, selector: #selector(displayNoLink), name: NSNotification.Name("displayNoLink"), object: nil)
@@ -123,6 +123,21 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
         self.tableView.reloadData()
           
       }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+         if(self.presenterLeague.checkAvailability()){
+                    league = leaguesArray![indexPath.row]
+                }
+                else{
+                    showAlert(Message: "Internet is NOT Available", Details: "Please Connect To Internet to Continue")
+                }
+        return indexPath
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            let vc : LeagueDetailsViewController = segue.destination as! LeagueDetailsViewController
+            vc.league = self.league
+        print("leagueName\(league?.leagueName)\(league?.leagueID)")
+            }
 
     
     @objc func showAlert(Message message : String, Details details : String){

@@ -69,6 +69,7 @@
                                             <outlet property="leagueImage" destination="dPn-53-2ZV" id="epu-7w-dws"/>
                                             <outlet property="leagueName" destination="dLr-VX-PKl" id="9p6-9o-c2z"/>
                                             <outlet property="youtubeBtn" destination="b5U-16-5IA" id="Z7F-oH-HhM"/>
+                                            <segue destination="z96-47-bBo" kind="show" id="ZcX-HO-f9Q"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -126,7 +127,7 @@
             <objects>
                 <viewController storyboardIdentifier="LeagueDetailsViewController" id="z96-47-bBo" customClass="LeagueDetailsViewController" customModule="sports_news" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MB0-PM-ASk">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IiF-O6-pjw">
@@ -167,7 +168,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2019-14-05" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCQ-XZ-U49">
-                                                            <rect key="frame" x="117" y="127" width="92" height="21"/>
+                                                            <rect key="frame" x="20" y="123" width="298" height="33"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -189,11 +190,11 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LastTableViewCell" rowHeight="164" id="smU-Tm-Sl4" customClass="LastTableViewCell" customModule="sports_news" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="358" height="164"/>
+                                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LastTableViewCell" rowHeight="236" id="smU-Tm-Sl4" customClass="LastTableViewCell" customModule="sports_news" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="358" height="236"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="smU-Tm-Sl4" id="0Rf-bv-j7e">
-                                                    <rect key="frame" x="0.0" y="0.0" width="358" height="164"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="358" height="236"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cSy-7P-CG6">
@@ -211,8 +212,22 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2019-14-05" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ro0-6p-4IY">
-                                                            <rect key="frame" x="129" y="125" width="92" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2019-14-05" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ro0-6p-4IY">
+                                                            <rect key="frame" x="20" y="171" width="310" height="39"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9VH-41-E1y">
+                                                            <rect key="frame" x="20" y="142" width="102" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgD-xj-Hlt">
+                                                            <rect key="frame" x="228" y="141" width="102" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -222,8 +237,10 @@
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="dateTV" destination="Ro0-6p-4IY" id="rnZ-ne-lwS"/>
+                                                    <outlet property="firstTeamName" destination="9VH-41-E1y" id="hEa-7d-NlO"/>
                                                     <outlet property="lTeamFirst" destination="cSy-7P-CG6" id="H7b-se-5LV"/>
                                                     <outlet property="lTeamSec" destination="nTk-oY-zG9" id="wcb-I4-d1v"/>
+                                                    <outlet property="secTeamName" destination="fgD-xj-Hlt" id="8iR-J3-qXA"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -266,6 +283,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="f9D-7s-PP5"/>
                     </view>
+                    <navigationItem key="navigationItem" id="yAm-cH-OV2"/>
                     <connections>
                         <outlet property="lastTable" destination="zbA-GC-ztI" id="8t3-sF-T70"/>
                         <outlet property="mainScroll" destination="IiF-O6-pjw" id="0p5-IU-cRp"/>

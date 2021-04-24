@@ -22,6 +22,7 @@ func getLeagues() {
     if((!((self.showLeagues as! LeaguesTableViewController).isFavouriteTab ?? true))){
         if(checkAvailability()){
                 getLeagueFromNetwork()
+          
         }
         else{
             (self.showLeagues as! LeaguesTableViewController).showAlert(Message: "Internet is NOT Available", Details: "Please check Internet to Continue")
@@ -31,19 +32,29 @@ func getLeagues() {
     }
 }
 
-func getLeagueFromNetwork() {
-    APIs.searchLeagueKey = self.showLeagues?.sportName?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-    NetworkService.INSTANCE.getResponse(withURL:URL(string: "\(APIs.allLeaguesForSportURL)\(APIs.searchLeagueKey!)")!, ProcessResult: {
-        json in
-        
-        let leagueArray = Mapper.jsonToLeagueList(fromJson: json)
+    func getLeagueFromNetwork() {
+        APIs.searchLeagueKey = self.showLeagues?.sportName?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        NetworkService.INSTANCE.getResponse(withURL:URL(string: "\(APIs.allLeaguesForSportURL)\(APIs.searchLeagueKey!)")!, ProcessResult: {
+            json in
+            
+            let leagueArray = Mapper.jsonToLeagueList(fromJson: json)
+            
 
-    self.showLeagues?.displayLeagues(LeaguesArray: leagueArray as! Array<LeagueEntity>)
-        }
-    )
-    
-}
-    
+        self.showLeagues?.displayLeagues(LeaguesArray: leagueArray as! Array<LeagueEntity>)
+            }
+        )
+        
+    }
+
     func getFavouriteLeagues() {
+//            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async{
+//                let faveLeagues = CoreDataHandler.getCoreHandlerInstance().getFavouriteLeagues()
+//
+//                DispatchQueue.main.async {
+//                    self.controller?.displayLeagues(LeaguesArray: faveLeagues)
+//                }
+//        }
+        
+        
     }
 }
