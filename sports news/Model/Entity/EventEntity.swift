@@ -16,4 +16,5 @@ class EventEntity{
     var secondTeam : TeamEntity?
     var firstTeamScore : String?
     var secondTeamScore : String?
+    var teamThumb : String?
 }

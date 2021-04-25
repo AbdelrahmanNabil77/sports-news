@@ -20,6 +20,7 @@ class SportsPresent:SportPresenterProtocol, Avilability{
     
     func getSports() {
         if(checkAvailability()){
+            
             NetworkService.INSTANCE.getResponse(withURL: APIs.sportsURL,  ProcessResult: {
                 json in let sportArray = Mapper.jsonToSportsList(fromJson: json)
                 sportArray.forEach({
