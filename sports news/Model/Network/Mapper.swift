@@ -52,6 +52,11 @@ class Mapper{
               team.teamBadge = json["strTeamBadge"].stringValue
               team.teamCountry = json["strCountry"].stringValue
               team.teamSport = json["strSport"].stringValue
+              team.teamFacebook = json["strFacebook"].stringValue
+             team.teamWebsite = json["strWebsite"].stringValue
+             team.teamInstgram = json["strInstagram"].stringValue
+             team.teamTwitter = json["strTwitter"].stringValue
+
               teamArray.append(team)
           })
           return teamArray

@@ -11,11 +11,10 @@ import SDWebImage
 
 class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,LeaguesShowProtocol, UISearchBarDelegate {
     
+     let activityIndicatorView : UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
+    
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    
     @IBOutlet weak var typeOfTab: UILabel!
-   
     @IBOutlet weak var tableView: UITableView!
     
      var isFiltered : Bool?
@@ -37,6 +36,7 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
               } else {
                 self.typeOfTab?.text = "Favourite Sports"
         }
+        
         filteredArr = leaguesArray
       
     }
@@ -46,9 +46,15 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
            leaguesArray = array
            filteredArr = array
            tableView.reloadData()
+        activityIndicatorView.stopAnimating()
+          print("stop activity indeicator2")
        }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.view.addSubview(activityIndicatorView)
+              print("activity indeicator2")
+              activityIndicatorView.startAnimating()
+              print("start activity indeicator2")
            presenterLeague.getLeagues()
        }
     
@@ -150,5 +156,7 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
           let leag = notification.object as! LeagueEntity
       showAlert(Message: "Sorry",Details: "No link Available for \(leag.leagueName!) League")
       }
+    
+  
 
 }

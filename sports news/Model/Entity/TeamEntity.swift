@@ -13,4 +13,8 @@ class TeamEntity{
     var teamBadge : String?
     var teamSport : String?
     var teamCountry : String?
+    var teamFacebook : String?
+    var teamTwitter : String?
+     var teamInstgram : String?
+     var teamWebsite : String?
 }

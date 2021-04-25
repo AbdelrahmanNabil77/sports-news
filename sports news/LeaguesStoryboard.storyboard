@@ -8,21 +8,107 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Team Details View Controller-->
         <scene sceneID="UXE-u3-Ifh">
             <objects>
-                <viewController id="O3g-f3-E47" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TeamDetailsViewController" id="O3g-f3-E47" customClass="TeamDetailsViewController" customModule="sports_news" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7lp-R6-HeD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NQS-J1-edj">
+                                <rect key="frame" x="87" y="102" width="240" height="156"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrZ-46-9Ry">
+                                <rect key="frame" x="46" y="335" width="114" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VPk-91-Saf">
+                                <rect key="frame" x="168" y="335" width="184" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Country" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDj-eO-Obt">
+                                <rect key="frame" x="46" y="435" width="114" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="936-Ho-8E5">
+                                <rect key="frame" x="168" y="435" width="184" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IT2-Sl-KHg">
+                                <rect key="frame" x="168" y="523" width="184" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TypeOfSport" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qYE-WS-zPP">
+                                <rect key="frame" x="46" y="523" width="114" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="48f-Sb-RMx">
+                                <rect key="frame" x="35" y="630" width="49" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="F" image="facebook2"/>
+                                <connections>
+                                    <action selector="goToFacebook:" destination="O3g-f3-E47" eventType="touchUpInside" id="Qiy-I6-91c"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MxS-qV-0jP">
+                                <rect key="frame" x="214" y="624" width="66" height="63"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="S" image="instgram2"/>
+                                <connections>
+                                    <action selector="goToInstgram:" destination="O3g-f3-E47" eventType="touchUpInside" id="HiG-qw-iVU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIa-6b-zB9">
+                                <rect key="frame" x="116" y="621" width="69" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="T" image="twitter2"/>
+                                <connections>
+                                    <action selector="goToTwitter:" destination="O3g-f3-E47" eventType="touchUpInside" id="aF7-bn-K43"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kuu-hJ-5Tc">
+                                <rect key="frame" x="315" y="630" width="57" height="57"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="W" image="website"/>
+                                <connections>
+                                    <action selector="goToWebsite:" destination="O3g-f3-E47" eventType="touchUpInside" id="zW5-0A-DvG"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="X9x-7d-36K"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZWx-Re-Hqz"/>
+                    <connections>
+                        <outlet property="teamCountry" destination="936-Ho-8E5" id="rYx-nA-Tce"/>
+                        <outlet property="teamImg" destination="NQS-J1-edj" id="9CP-ho-QtX"/>
+                        <outlet property="teamName" destination="VPk-91-Saf" id="pvZ-Xx-a2k"/>
+                        <outlet property="teamSport" destination="IT2-Sl-KHg" id="Af2-uQ-3E3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7fN-NW-INt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="339.13043478260875" y="-8.0357142857142847"/>
+            <point key="canvasLocation" x="3124.6376811594205" y="-8.1521739130434785"/>
         </scene>
         <!--Leagues Table View Controller-->
         <scene sceneID="tlY-wT-ie4">
@@ -103,24 +189,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qIe-mK-QJJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1163.768115942029" y="-24.107142857142858"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="MfY-hG-Jba">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yaR-MN-YMA" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FBq-kJ-nrd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="O3g-f3-E47" kind="relationship" relationship="rootViewController" id="44W-bC-Y6n"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iCq-Ze-jfc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-571.01449275362324" y="-8.0357142857142847"/>
         </scene>
         <!--League Details View Controller-->
         <scene sceneID="caA-lX-90j">
@@ -271,6 +339,7 @@
                                                 </collectionViewCellContentView>
                                                 <connections>
                                                     <outlet property="teamImage" destination="FJe-3x-8GS" id="Hc1-iL-SuI"/>
+                                                    <segue destination="O3g-f3-E47" kind="show" id="tpL-MH-n27"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -297,6 +366,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="facebook2" width="225" height="225"/>
+        <image name="instgram2" width="225" height="225"/>
+        <image name="twitter2" width="225" height="225"/>
+        <image name="website" width="220" height="230"/>
         <image name="youtube" width="128" height="90"/>
     </resources>
 </document>

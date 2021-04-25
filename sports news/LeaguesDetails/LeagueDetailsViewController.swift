@@ -10,6 +10,7 @@ import UIKit
 
 class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource {
 
+    let activityIndicatorView : UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
     
     @IBOutlet weak var mainScroll: UIScrollView!
     @IBOutlet weak var teamsCollection: UICollectionView!
@@ -19,6 +20,7 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
     var league : LeagueEntity?
     var upComingEvents = Array<EventEntity>()
     var teamsArray = Array<TeamEntity>()
+    var teamDetails : TeamEntity?
     var pastEvents = Array<EventEntity>()
 
       private let presenter = LeagueDetailsPresenter()
@@ -33,9 +35,14 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
         
         lastTable.delegate=self
         lastTable.dataSource=self
-        
+        self.view.addSubview(activityIndicatorView)
+                   print("activity indeicator3")
+                   activityIndicatorView.startAnimating()
+                   print("start activity indeicator3")
         presenter.controller = self
         presenter.getAllData(forLeague: league!)
+        activityIndicatorView.stopAnimating()
+               print("stop activity indeicator3")
 
         mainScroll.contentSize=CGSize(width: (view.frame.size.width-20), height: 800)
         
@@ -107,8 +114,36 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
         }
         return CGSize(width: upcomingCollection.frame.size.width, height: upcomingCollection.frame.size.height)
     }
+
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+         print("goToTeamDetails")
+        if(self.presenter.checkAvailability()){
+            teamDetails = teamsArray[indexPath.row]
+        }
+        else{
+             showAlert(Message: "Internet is NOT Available", Details: "Please Connect To Internet to Continue")
+        }
+        return true
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let tvc : TeamDetailsViewController = segue.destination as! TeamDetailsViewController
+        tvc.teamDetails = self.teamDetails
+    print("TeamName\(teamDetails?.teamName)")
+        }
+    
+@objc func showAlert(Message message : String, Details details : String){
+     let alert = UIAlertController(title: message, message: details, preferredStyle: .alert)
+     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+     self.present(alert, animated: true)
+ }
+    @objc func displayNoLinkForTeam (notification: Notification){
+               let team = notification.object as! TeamEntity
+           showAlert(Message: "Sorry",Details: "No link Available for \(team.teamName!) Team")
+           }
     
 }
+
+
 
  extension UIImageView {
 
