@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import CoreData
 class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource {
 
     
@@ -39,6 +39,45 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
 
         mainScroll.contentSize=CGSize(width: (view.frame.size.width-20), height: 800)
         
+       /*let testUIBarButtonItem = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem  = testUIBarButtonItem
+        testUIBarButtonItem.tintColor = .gray*/
+        
+        let containerView = UIControl(frame: CGRect.init(x: 0, y: 0, width: 30, height: 30))
+        containerView.addTarget(self, action: #selector(addFavorite), for: .touchUpInside)
+        let imageAdd = UIImageView(frame: CGRect.init(x: 0, y: 0, width: 30, height: 30))
+        imageAdd.image = UIImage(named: "heart")
+        containerView.addSubview(imageAdd)
+        let addBtn = UIBarButtonItem(customView: containerView)
+        addBtn.width = 20
+        navigationItem.rightBarButtonItem = addBtn
+        
+
+        
+        
+    }
+    
+    @objc func addFavorite(){
+        //1
+        /*let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        //2
+        let managedContext = appDelegate.persistentContainer.viewContext
+        //3
+        let entity = NSEntityDescription.entity(forEntityName: "FavLeague", in: managedContext)
+        //4
+        let favItemCD = NSManagedObject(entity: entity!, insertInto: managedContext)
+        favItemCD.setValue("ahly", forKey: "image")
+        favItemCD.setValue("premium league", forKey: "title")
+        favItemCD.setValue("www.google.com", forKey: "link")*/
+        //5
+       /* do{
+            try managedContext.save()
+            print("saved successfully")
+        }catch let error as NSError{
+            print(error)
+        }*/
+        let favView:FavoriteTableViewController=(self.storyboard?.instantiateViewController(identifier: "FavoriteTableViewController"))!
+        self.navigationController?.pushViewController(favView, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
