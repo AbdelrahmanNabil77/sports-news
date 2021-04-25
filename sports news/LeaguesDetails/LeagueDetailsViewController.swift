@@ -59,12 +59,19 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
         let cell = tableView.dequeueReusableCell(withIdentifier: "LastTableViewCell", for: indexPath) as! LastTableViewCell
         cell.lTeamFirst.makeRounded()
         cell.lTeamSec.makeRounded()
-       // let imageUrl = pastEvents[indexPath.row].firstTeam?.teamBadge!
-         //           cell.lTeamFirst!.sd_setImage(with: URL(string:imageUrl!), placeholderImage: UIImage(named: "placeholder"))
-          //cell.lTeamSec!.sd_setImage(with: URL(string:imageUrl!), placeholderImage: UIImage(named: "placeholder"))
+        if  let imageUrlTeam1 = pastEvents[indexPath.row].firstTeam?.teamBadge{
+            cell.lTeamFirst!.sd_setImage(with: URL(string:imageUrlTeam1), placeholderImage: UIImage(named: "placeholder"))
+        }else{
+            cell.lTeamFirst.image = UIImage(named: "team1")
+        }
+        if let imageUrlTeam2 = pastEvents[indexPath.row].secondTeam?.teamBadge{
+          cell.lTeamSec!.sd_setImage(with: URL(string:imageUrlTeam2), placeholderImage: UIImage(named: "placeholder"))
+        }else{
+            cell.lTeamSec.image = UIImage(named: "team2")
+        }
         cell.firstTeamName.text = pastEvents[indexPath.row].firstTeam?.teamName
         cell.secTeamName.text = pastEvents[indexPath.row].secondTeam?.teamName
-
+        
               cell.dateTV.text = "Date: \(String(describing: (pastEvents[indexPath.row].eventDate)!)) Time: \(String(describing: (pastEvents[indexPath.row].eventTime)!))"
               return cell
         // Configure the cell...
@@ -78,7 +85,8 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(collectionView==upcomingCollection){
-        return 5
+                  print("arrayOfUPComing\(teamsArray.count)")
+            return upComingEvents.count
         }
         print("arrayOfTeam\(teamsArray.count)")
         return teamsArray.count
@@ -98,12 +106,21 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upcomingCell", for: indexPath) as! UpcomingCollectionViewCell
             cell.uTeamFirst.makeRounded()
             cell.uTeamSec.makeRounded()
-       // cell.dateTV.text = "Date: \(String(describing: (upComingEvents[indexPath.row].eventDate)!)) Time: \(String(describing: (upComingEvents[indexPath.row].eventTime)!))"
-      //  var imageUrl = teamsArray[indexPath.row].teamBadge!
-                 //  cell.uTeamFirst!.sd_setImage(with: URL(string:imageUrl), placeholderImage: UIImage(named: "placeholder"))
-      //   cell.uTeamSec!.sd_setImage(with: URL(string:imageUrl), placeholderImage: UIImage(named: "placeholder"))
-          
         
+            if let imageUrlTeam1 = upComingEvents[indexPath.row].firstTeam?.teamBadge{
+                          cell.uTeamFirst!.sd_setImage(with: URL(string:imageUrlTeam1), placeholderImage: UIImage(named: "placeholder"))
+            }else{
+                cell.uTeamFirst.image = UIImage(named: "team1")
+            }
+            
+            if let imageUrlTeam2 = upComingEvents[indexPath.row].secondTeam?.teamBadge{
+             cell.uTeamSec!.sd_setImage(with: URL(string:imageUrlTeam2), placeholderImage: UIImage(named: "placeholder"))
+            }else{
+                cell.uTeamSec.image = UIImage(named: "team2")
+            }
+                       cell.dateTV.text = "Date: \(String(describing: (upComingEvents[indexPath.row].eventDate)!)) Time: \(String(describing: (upComingEvents[indexPath.row].eventTime)!))"
+     
+      
             return cell
         
     }

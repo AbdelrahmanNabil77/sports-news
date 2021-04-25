@@ -77,6 +77,7 @@ class Mapper{
               event.secondTeam?.teamName = json["strAwayTeam"].stringValue
               event.firstTeamScore = json["intHomeScore"].stringValue
               event.secondTeamScore = json["intAwayScore"].stringValue
+             event.teamThumb = json["strThumb"].stringValue
               eventArray.append(event)
           })
           return eventArray
