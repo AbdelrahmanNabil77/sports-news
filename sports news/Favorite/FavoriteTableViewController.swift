@@ -8,12 +8,16 @@
 
 import UIKit
 import CoreData
-class FavoriteTableViewController: UITableViewController {
+class FavoriteTableViewController: UITableViewController,FavoriteControllerContract {
+    
+    var favPresenter:FavoritePresenterContract?
     var favArr:[FavItem]=[FavItem]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadFromCoreData()
         
+        favPresenter=FavoritePresenter(favoriteVC: self)
+        favPresenter?.getFavArr()
+
         
     }
 
@@ -33,7 +37,7 @@ class FavoriteTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavortieTableViewCell", for: indexPath) as! FavortieTableViewCell
         cell.leagueImage.makeRounded()
-        cell.leagueImage.image=UIImage(named: favArr[indexPath.row].image!)
+        cell.leagueImage.image=UIImage(named: favArr[indexPath.row].image)
         cell.leagueTitle.text=favArr[indexPath.row].title
 
         return cell
@@ -53,7 +57,7 @@ class FavoriteTableViewController: UITableViewController {
                 managedContext.delete(favArrCD[indexPath.row])
                 do {
                     try managedContext.save()
-                    loadFromCoreData()
+                    //loadFromCoreData()
                     tableView.reloadData()
                 } catch {
                     print("failed to load data from core data in delete inner catch")
@@ -112,7 +116,10 @@ class FavoriteTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    
+    func displayFavoriteArr(favArr: [FavItem]) {
+        self.favArr=favArr
+        self.tableView.reloadData()
+    }
     func loadFromCoreData() {
         favArr.removeAll()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -120,7 +127,7 @@ class FavoriteTableViewController: UITableViewController {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavLeague")
         do{
             let favArrCD = try managedContext.fetch(fetchRequest)
-            
+
             for favItemCD in favArrCD{
                 let title = favItemCD.value(forKey: "title") as! String
                 let link = favItemCD.value(forKey: "link") as! String
