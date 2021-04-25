@@ -49,7 +49,7 @@ class FavoriteTableViewController: UITableViewController,FavoriteControllerContr
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+           /* let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let managedContext = appDelegate.persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavLeague")
             do{
@@ -64,8 +64,8 @@ class FavoriteTableViewController: UITableViewController,FavoriteControllerContr
                 }
             }catch{
                 print("failed to load data from core data in delete")
-            }
-            
+            }*/
+            favPresenter?.deleteFavItem(indexRow: indexPath.row)
         }
     }
     
@@ -132,7 +132,8 @@ class FavoriteTableViewController: UITableViewController,FavoriteControllerContr
                 let title = favItemCD.value(forKey: "title") as! String
                 let link = favItemCD.value(forKey: "link") as! String
                 let image = favItemCD.value(forKey: "image") as! String
-                let favItem = FavItem(image: image, title: title, link: link)
+                let lId = favItemCD.value(forKey: "lId") as! String
+                let favItem = FavItem(image: image, title: title, link: link,lId: lId)
                 favArr.append(favItem)
             }
             tableView.reloadData()

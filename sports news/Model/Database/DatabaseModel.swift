@@ -27,7 +27,8 @@ class CoredataModel {
                 let title = favItemCD.value(forKey: "title") as! String
                 let link = favItemCD.value(forKey: "link") as! String
                 let image = favItemCD.value(forKey: "image") as! String
-                let favItem = FavItem(image: image, title: title, link: link)
+                let lId = favItemCD.value(forKey: "lId") as! String
+                let favItem = FavItem(image: image, title: title, link: link,lId: lId)
                 favArr.append(favItem)
             }
         }catch{
@@ -48,6 +49,7 @@ class CoredataModel {
         favItemCD.setValue(favItem.image, forKey: "image")
         favItemCD.setValue(favItem.title, forKey: "title")
         favItemCD.setValue(favItem.link, forKey: "link")
+        favItemCD.setValue(favItem.lId, forKey: "lId")
         //5
         do{
             try managedContext.save()

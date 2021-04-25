@@ -11,9 +11,11 @@ class FavItem{
     var image:String
     var title:String
     var link:String
-    init(image:String,title:String,link:String) {
+    var lId:String
+    init(image:String,title:String,link:String,lId:String) {
         self.image=image
         self.title=title
         self.link=link
+        self.lId=lId
     }
 }

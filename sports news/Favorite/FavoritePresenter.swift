@@ -8,9 +8,13 @@
 
 import Foundation
 class FavoritePresenter:FavoritePresenterContract{
-    var favoriteVC:FavoriteControllerContract
+    var favoriteVC:FavoriteControllerContract?
     
     let databaseInstance = CoredataModel.getInstance
+    
+    init() {
+        
+    }
     
     init(favoriteVC:FavoriteControllerContract) {
         print("inside presenter init")
@@ -19,15 +23,17 @@ class FavoritePresenter:FavoritePresenterContract{
    
     func getFavArr() {
         print("getFavArr and the count is \(databaseInstance.getFavoriteArrayFromCD().count)")
-        favoriteVC.displayFavoriteArr(favArr: databaseInstance.getFavoriteArrayFromCD())
+        favoriteVC!.displayFavoriteArr(favArr: databaseInstance.getFavoriteArrayFromCD())
     }
     
     func deleteFavItem(indexRow: Int) {
         databaseInstance.deleteFavItem(indexRow: indexRow)
+        favoriteVC!.displayFavoriteArr(favArr: databaseInstance.getFavoriteArrayFromCD())
     }
     
     func addFavItem(favItem: FavItem) {
         databaseInstance.addFavToCD(favItem: favItem)
+        
     }
     
     
