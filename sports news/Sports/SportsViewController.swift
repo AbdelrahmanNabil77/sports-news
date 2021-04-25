@@ -11,18 +11,23 @@ import SDWebImage
 
 class SportsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout ,SportsViewProtocol{
     
+
     var sportsList:Array<SportEntity>?
     var sportPersent:SportsPresent?
-    
+    let activityIndicatorView : UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
          sportsList = Array<SportEntity>()
+        self.view.addSubview(activityIndicatorView)
+        print("activity indeicator")
+        activityIndicatorView.startAnimating()
+        print("start activity indeicator")
+            
         sportPersent = SportsPresent(sportsview: self)
         sportPersent?.getSports()
-
        
     }
     
@@ -30,6 +35,8 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
           sportsList = sports
           print((sportsList?.count)!)
           collectionView.reloadData()
+        activityIndicatorView.stopAnimating()
+              print("stop activity indeicator")
       }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
