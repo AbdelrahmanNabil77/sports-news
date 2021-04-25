@@ -8,9 +8,9 @@
 
 import Foundation
 class FavItem{
-    var image:String?
-    var title:String?
-    var link:String?
+    var image:String
+    var title:String
+    var link:String
     init(image:String,title:String,link:String) {
         self.image=image
         self.title=title

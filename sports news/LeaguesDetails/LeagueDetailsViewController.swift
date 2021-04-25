@@ -59,7 +59,7 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
     
     @objc func addFavorite(){
         //1
-        /*let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         //2
         let managedContext = appDelegate.persistentContainer.viewContext
         //3
@@ -68,14 +68,14 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
         let favItemCD = NSManagedObject(entity: entity!, insertInto: managedContext)
         favItemCD.setValue("ahly", forKey: "image")
         favItemCD.setValue("premium league", forKey: "title")
-        favItemCD.setValue("www.google.com", forKey: "link")*/
+        favItemCD.setValue("www.google.com", forKey: "link")
         //5
-       /* do{
+        do{
             try managedContext.save()
             print("saved successfully")
         }catch let error as NSError{
             print(error)
-        }*/
+        }
         let favView:FavoriteTableViewController=(self.storyboard?.instantiateViewController(identifier: "FavoriteTableViewController"))!
         self.navigationController?.pushViewController(favView, animated: true)
     }
