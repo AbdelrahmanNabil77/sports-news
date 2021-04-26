@@ -28,7 +28,7 @@ func getLeagues() {
             (self.showLeagues as! LeaguesTableViewController).showAlert(Message: "Internet is NOT Available", Details: "Please check Internet to Continue")
         }
     }else {
-           // getFavouriteLeagues()
+           getFavouriteLeagues()
     }
 }
 
@@ -47,13 +47,13 @@ func getLeagues() {
     }
 
     func getFavouriteLeagues() {
-//            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async{
-//                let faveLeagues = CoreDataHandler.getCoreHandlerInstance().getFavouriteLeagues()
-//
-//                DispatchQueue.main.async {
-//                    self.controller?.displayLeagues(LeaguesArray: faveLeagues)
-//                }
-//        }
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async{
+                let faveLeagues = CoredataModel.getInstance.getFavouriteLeagues()
+
+                DispatchQueue.main.async {
+                    self.showLeagues?.displayLeagues(LeaguesArray: faveLeagues)
+                }
+        }
         
         
     }

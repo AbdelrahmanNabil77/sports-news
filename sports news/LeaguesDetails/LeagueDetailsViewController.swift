@@ -8,13 +8,17 @@
 
 import UIKit
 import CoreData
-class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource {
+class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource{
+ 
 
     let activityIndicatorView : UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
     
+    @IBOutlet weak var favBtn: UIButton!
     @IBOutlet weak var mainScroll: UIScrollView!
     @IBOutlet weak var teamsCollection: UICollectionView!
     @IBOutlet weak var upcomingCollection: UICollectionView!
+    var addBtn :UIBarButtonItem?
+   
     
     @IBOutlet weak var lastTable: UITableView!
     var league : LeagueEntity?
@@ -43,51 +47,33 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
         presenter.getAllData(forLeague: league!)
         activityIndicatorView.stopAnimating()
                print("stop activity indeicator3")
-
+        self.checFavStatus()
         mainScroll.contentSize=CGSize(width: (view.frame.size.width-20), height: 800)
-        
-       /*let testUIBarButtonItem = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: self, action: nil)
-        self.navigationItem.rightBarButtonItem  = testUIBarButtonItem
-        testUIBarButtonItem.tintColor = .gray*/
-        
-        let containerView = UIControl(frame: CGRect.init(x: 0, y: 0, width: 30, height: 30))
-        containerView.addTarget(self, action: #selector(addFavorite), for: .touchUpInside)
-        let imageAdd = UIImageView(frame: CGRect.init(x: 0, y: 0, width: 30, height: 30))
-        imageAdd.image = UIImage(named: "heart")
-        containerView.addSubview(imageAdd)
-        let addBtn = UIBarButtonItem(customView: containerView)
-        addBtn.width = 20
-        navigationItem.rightBarButtonItem = addBtn
-        
-
-        
-        
-    }
     
-    @objc func addFavorite(){
-        /*//1
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        //2
-        let managedContext = appDelegate.persistentContainer.viewContext
-        //3
-        let entity = NSEntityDescription.entity(forEntityName: "FavLeague", in: managedContext)
-        //4
-        let favItemCD = NSManagedObject(entity: entity!, insertInto: managedContext)
-        favItemCD.setValue("ahly", forKey: "image")
-        favItemCD.setValue("premium league", forKey: "title")
-        favItemCD.setValue("www.google.com", forKey: "link")
-        //5
-        do{
-            try managedContext.save()
-            print("saved successfully")
-        }catch let error as NSError{
-            print(error)
-        }*/
-        let favoritePresenter = FavoritePresenter()
-        favoritePresenter.addFavItem(favItem: FavItem(image: "ahly", title: "premium league", link: "www.google.com", lId: "1234"))
-        let favView:FavoriteTableViewController=(self.storyboard?.instantiateViewController(identifier: "FavoriteTableViewController"))!
-        self.navigationController?.pushViewController(favView, animated: true)
+        
+//        let containerView = UIControl(frame: CGRect.init(x: 0, y: 0, width: 30, height: 30))
+//        containerView.addTarget(self, action: #selector(addFavorite), for: .touchUpInside)
+//        let imageAdd = UIImageView(frame: CGRect.init(x: 0, y: 0, width: 30, height: 30))
+//        imageAdd.image = UIImage(named: "heart")
+//        containerView.addSubview(imageAdd)
+//       addBtn = UIBarButtonItem(customView: containerView)
+//        addBtn!.width = 20
+//        navigationItem.rightBarButtonItem = addBtn
+        
     }
+    @IBAction func addToFav(_ sender: Any) {
+        if(!favBtn.isSelected){
+                   self.presenter.addLeagueToLocal(League: league!)
+               }
+               else{
+                   self.presenter.deleteFromLocal(League: league!)
+               }
+    }
+    func checFavStatus(){
+          if let id = self.league?.leagueID {
+              self.presenter.checkLeagueFavourite(withID: (self.league?.leagueID)!)
+          }
+      }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("arrayOfEvant\(pastEvents.count)")
@@ -216,8 +202,9 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
  }
 extension LeagueDetailsViewController : LeaguesDetailsControllerContract{
     func updateFavourite(isSelected: Bool) {
-    
+        favBtn.isSelected = isSelected
     }
+    
     
     func displayUpcomingEvents(listOfUpcomingEvents events: Array<EventEntity>) {
         upComingEvents = events

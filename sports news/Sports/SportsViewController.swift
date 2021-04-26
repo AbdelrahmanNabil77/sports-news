@@ -102,18 +102,6 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
 //
         
      }
-    
- 
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//          let leagueStoryBoard = UIStoryboard(name: "LeaguesStoryboard", bundle: nil)
-//                          let leagueViewController = leagueStoryBoard.instantiateViewController(withIdentifier:
-//                              "leaguesTableViewController") as! LeaguesTableViewController
-//
-//                   leagueViewController.isFavouriteTab = false
-//                   leagueViewController.sportName = sportsList?[indexPath.row].sportName
-//                   self.navigationController?.pushViewController(leagueViewController, animated: true)
-//                  print("goToLeagues")
-//    }
   
 
 }

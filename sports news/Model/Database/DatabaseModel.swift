@@ -10,64 +10,109 @@ import Foundation
 import UIKit
 import CoreData
 class CoredataModel {
-    private init() {
-    }
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+       private var managedContext:NSManagedObjectContext?
+       
+       private init () {
+           managedContext = appDelegate.persistentContainer.viewContext
+       }
     
     static let getInstance=CoredataModel()
     
-    func getFavoriteArrayFromCD() -> [FavItem] {
-        var favArr=[FavItem]()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let managedContext = appDelegate.persistentContainer.viewContext
+    func getFavouriteLeagues() -> [LeagueEntity] {
+          return getFavoriteArrayFromCD()
+      }
+    
+    
+    private func prepareNSManagedObject(leagueValue:LeagueEntity,leagueNSManagedObject : NSManagedObject) -> NSManagedObject{
+         
+         leagueNSManagedObject.setValue(leagueValue.leagueID, forKey: "lId")
+         leagueNSManagedObject.setValue(leagueValue.leagueName, forKey: "title")
+         leagueNSManagedObject.setValue(leagueValue.leagueBadge, forKey: "image")
+         leagueNSManagedObject.setValue(leagueValue.leagueVideoLink, forKey: "link")
+         
+         return leagueNSManagedObject
+     }
+     
+     private func prepareLeagueObject(leagueNSManagedObject : NSManagedObject) -> LeagueEntity{
+         
+         let league = LeagueEntity()
+         league.leagueID = leagueNSManagedObject.value(forKey: "lId") as? String
+         league.leagueName = leagueNSManagedObject.value(forKey: "title") as? String
+         league.leagueBadge = leagueNSManagedObject.value(forKey: "image") as? String
+         league.leagueVideoLink = leagueNSManagedObject.value(forKey: "link") as? String
+
+         return league
+     }
+    
+    func getFavoriteArrayFromCD() -> [LeagueEntity] {
+        var favArr=[LeagueEntity]()
+        var favArrCD = Array<NSManagedObject>()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavLeague")
         do{
-            let favArrCD = try managedContext.fetch(fetchRequest)
+             
+            favArrCD = try managedContext!.fetch(fetchRequest)
             
-            for favItemCD in favArrCD{
-                let title = favItemCD.value(forKey: "title") as! String
-                let link = favItemCD.value(forKey: "link") as! String
-                let image = favItemCD.value(forKey: "image") as! String
-                let lId = favItemCD.value(forKey: "lId") as! String
-                let favItem = FavItem(image: image, title: title, link: link,lId: lId)
-                favArr.append(favItem)
-            }
+            favArrCD.forEach({(object) in
+                favArr.append(prepareLeagueObject(leagueNSManagedObject: object))
+            
+            })
         }catch{
             print("failed to load data from core data")
         }
         return favArr
     }
     
-    func addFavToCD(favItem:FavItem){
-        //1
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        //2
-        let managedContext = appDelegate.persistentContainer.viewContext
-        //3
-        let entity = NSEntityDescription.entity(forEntityName: "FavLeague", in: managedContext)
-        //4
-        let favItemCD = NSManagedObject(entity: entity!, insertInto: managedContext)
-        favItemCD.setValue(favItem.image, forKey: "image")
-        favItemCD.setValue(favItem.title, forKey: "title")
-        favItemCD.setValue(favItem.link, forKey: "link")
-        favItemCD.setValue(favItem.lId, forKey: "lId")
-        //5
+    func addFavToCD(league LeagueValue:LeagueEntity)  -> LeagueEntity{
+  
+        let entity = NSEntityDescription.entity(forEntityName: "FavLeague", in: managedContext!)
+        
+        var favItemCD = NSManagedObject(entity: entity!, insertInto: managedContext)
+        
+        favItemCD = prepareNSManagedObject(leagueValue: LeagueValue, leagueNSManagedObject: favItemCD)
+       
         do{
-            try managedContext.save()
+            try managedContext!.save()
             print("saved successfully")
         }catch let error as NSError{
             print(error)
         }
+              return LeagueValue
+    }
+
+    func fetchFavById(indexRow :String) -> NSManagedObject?{
+        var leaguesById = Array<NSManagedObject>()
+        
+        let predicate = NSPredicate(format: "lId == %@",indexRow)
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavLeague")
+        
+        fetchRequest.predicate = predicate
+        
+        do{
+            leaguesById = try managedContext!.fetch(fetchRequest)
+        }
+        catch{
+            print("error in fetchData")
+        }
+        if(leaguesById.count > 0 ){
+            return leaguesById[0]
+        }
+        return  nil
     }
     
-    func deleteFavItem(indexRow:Int){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavLeague")
+    func deleteFavItem(indexRow:String){
+         let leagueById = fetchFavById(indexRow: indexRow)
+        if(leagueById == nil){
+               return
+           }
+         managedContext?.delete(leagueById!)
+       
         do{
-            let favArrCD = try managedContext.fetch(fetchRequest)
-            managedContext.delete(favArrCD[indexRow])
+            try managedContext!.save()
+
         }catch{
             print("failed to load data from core data")
         }
     }
 }
+

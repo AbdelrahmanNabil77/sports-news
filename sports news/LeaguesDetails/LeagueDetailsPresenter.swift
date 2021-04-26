@@ -62,24 +62,24 @@ class LeagueDetailsPresenter : LeaguesDetailsPresenterContract , Avilability{
     
 
     func deleteFromLocal(League league: LeagueEntity) {
-//        if let id = league.leagueID {
-//        CoreDataHandler.getCoreHandlerInstance().deleteFromEntity(id: id)
-//            self.controller?.updateFavourite(isSelected: false)
-//        }
+        if let id = league.leagueID {
+            CoredataModel.getInstance.deleteFavItem(indexRow: id)
+            self.controller?.updateFavourite(isSelected: false)
+        }
     }
 
     func checkLeagueFavourite(withID id : String) {
-//        if let val = CoreDataHandler.getCoreHandlerInstance().fetchLeagueById(id: id){
-//            self.controller?.updateFavourite(isSelected: true)
-//        }
-//        else{
-//            self.controller?.updateFavourite(isSelected: false)
-//        }
+        if let val =  CoredataModel.getInstance.fetchFavById(indexRow: id){
+            self.controller?.updateFavourite(isSelected: true)
+        }
+        else{
+            self.controller?.updateFavourite(isSelected: false)
+        }
     }
 
     func addLeagueToLocal(League league: LeagueEntity) {
-//    CoreDataHandler.getCoreHandlerInstance().insertInLocalLeagues(league: league)
-//        self.controller?.updateFavourite(isSelected: true)
+     CoredataModel.getInstance.addFavToCD(league: league)
+        self.controller?.updateFavourite(isSelected: true)
 
     }
 
