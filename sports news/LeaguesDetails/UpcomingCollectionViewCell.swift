@@ -12,5 +12,7 @@ class UpcomingCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var uTeamFirst: UIImageView!
     
     @IBOutlet weak var dateTV: UILabel!
+     @IBOutlet weak var firstTeamName: UILabel!
+     @IBOutlet weak var secTeamName: UILabel!
     @IBOutlet weak var uTeamSec: UIImageView!
 }

@@ -213,12 +213,12 @@
 			path = Leagues;
 			sourceTree = "<group>";
 		};
-		22E69B10262F9BE1003FB757 /* TeamdDetails */ = {
+		22E69B10262F9BE1003FB757 /* TeamDetails */ = {
 			isa = PBXGroup;
 			children = (
 				2246E52A2635ADB5009DDF25 /* TeamDetailsViewController.swift */,
 			);
-			path = TeamdDetails;
+			path = TeamDetails;
 			sourceTree = "<group>";
 		};
 		22E69B11262F9BF3003FB757 /* LeaguesDetails */ = {
@@ -269,7 +269,7 @@
 			children = (
 				627CEC2E26356ACF002ECDA2 /* Favorite */,
 				22E69B11262F9BF3003FB757 /* LeaguesDetails */,
-				22E69B10262F9BE1003FB757 /* TeamdDetails */,
+				22E69B10262F9BE1003FB757 /* TeamDetails */,
 				22E69B0E262F9BCB003FB757 /* Leagues */,
 				22E69B0D262F9AC0003FB757 /* Model */,
 				22E69B06262F94F4003FB757 /* Constant */,

@@ -12,6 +12,8 @@ class LastTableViewCell: UITableViewCell {
 
     @IBOutlet weak var secTeamName: UILabel!
     @IBOutlet weak var firstTeamName: UILabel!
+    @IBOutlet weak var secTeamScore: UILabel!
+    @IBOutlet weak var firstTeamScore: UILabel!
     @IBOutlet weak var lTeamFirst: UIImageView!
     @IBOutlet weak var lTeamSec: UIImageView!
     @IBOutlet weak var dateTV: UILabel!

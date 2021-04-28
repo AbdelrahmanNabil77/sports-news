@@ -91,16 +91,7 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
          self.navigationController?.pushViewController(leagueViewController, animated: true)
         print("goToLeagues")
          return true
-//        let leagueStoryBoard = UIStoryboard(name: "LeaguesStoryboard", bundle: nil)
-//                       let leagueViewController = leagueStoryBoard.instantiateViewController(withIdentifier:
-//                           "LeagueDetailsViewController") as! LeagueDetailsViewController
-//
-//
-//                self.navigationController?.pushViewController(leagueViewController, animated: true)
-//               print("goToLeagues")
-//                return true
-//
-        
+    
      }
   
 

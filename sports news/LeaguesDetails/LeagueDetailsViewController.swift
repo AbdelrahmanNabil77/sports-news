@@ -64,9 +64,13 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
     @IBAction func addToFav(_ sender: Any) {
         if(!favBtn.isSelected){
                    self.presenter.addLeagueToLocal(League: league!)
+            showAlert(Message: "Added", Details: "This League Added to Favourite")
+
                }
                else{
                    self.presenter.deleteFromLocal(League: league!)
+            showAlert(Message: "Removed", Details: "This League Removed from Favourite")
+
                }
     }
     func checFavStatus(){
@@ -98,6 +102,9 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
         }
         cell.firstTeamName.text = pastEvents[indexPath.row].firstTeam?.teamName
         cell.secTeamName.text = pastEvents[indexPath.row].secondTeam?.teamName
+        cell.firstTeamScore.text = pastEvents[indexPath.row].firstTeamScore
+        cell.secTeamScore.text = pastEvents[indexPath.row].secondTeamScore
+
         
               cell.dateTV.text = "Date: \(String(describing: (pastEvents[indexPath.row].eventDate)!)) Time: \(String(describing: (pastEvents[indexPath.row].eventTime)!))"
               return cell
@@ -145,6 +152,9 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
             }else{
                 cell.uTeamSec.image = UIImage(named: "team2")
             }
+        cell.firstTeamName.text = upComingEvents[indexPath.row].firstTeam?.teamName
+        cell.secTeamName.text = upComingEvents[indexPath.row].secondTeam?.teamName
+
                        cell.dateTV.text = "Date: \(String(describing: (upComingEvents[indexPath.row].eventDate)!)) Time: \(String(describing: (upComingEvents[indexPath.row].eventTime)!))"
      
       
@@ -203,6 +213,7 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
 extension LeagueDetailsViewController : LeaguesDetailsControllerContract{
     func updateFavourite(isSelected: Bool) {
         favBtn.isSelected = isSelected
+
     }
     
     
