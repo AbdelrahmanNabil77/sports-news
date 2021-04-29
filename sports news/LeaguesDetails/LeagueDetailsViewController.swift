@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SDWebImage
 class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource{
  
 
@@ -18,8 +19,6 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
     @IBOutlet weak var teamsCollection: UICollectionView!
     @IBOutlet weak var upcomingCollection: UICollectionView!
     var addBtn :UIBarButtonItem?
-   
-    
     @IBOutlet weak var lastTable: UITableView!
     var league : LeagueEntity?
     var upComingEvents = Array<EventEntity>()
@@ -90,7 +89,18 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
         let cell = tableView.dequeueReusableCell(withIdentifier: "LastTableViewCell", for: indexPath) as! LastTableViewCell
         cell.lTeamFirst.makeRounded()
         cell.lTeamSec.makeRounded()
-        if  let imageUrlTeam1 = pastEvents[indexPath.row].firstTeam?.teamBadge{
+        var firstTeam:String=""
+        var secTeam:String=""
+        for team in teamsArray{
+            if pastEvents[indexPath.row].firstTeam?.teamName==team.teamName{
+                firstTeam=team.teamBadge!
+            }else if pastEvents[indexPath.row].secondTeam?.teamName==team.teamName{
+                secTeam=team.teamBadge!
+            }
+        }
+        cell.lTeamFirst.sd_setImage(with: URL(string: firstTeam), completed: nil)
+        cell.lTeamSec.sd_setImage(with: URL(string: secTeam), completed: nil)
+        /*if  let imageUrlTeam1 = pastEvents[indexPath.row].firstTeam?.teamBadge{
             cell.lTeamFirst!.sd_setImage(with: URL(string:imageUrlTeam1), placeholderImage: UIImage(named: "placeholder"))
         }else{
             cell.lTeamFirst.image = UIImage(named: "team1")
@@ -99,7 +109,7 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
           cell.lTeamSec!.sd_setImage(with: URL(string:imageUrlTeam2), placeholderImage: UIImage(named: "placeholder"))
         }else{
             cell.lTeamSec.image = UIImage(named: "team2")
-        }
+        }*/
         cell.firstTeamName.text = pastEvents[indexPath.row].firstTeam?.teamName
         cell.secTeamName.text = pastEvents[indexPath.row].secondTeam?.teamName
         cell.firstTeamScore.text = pastEvents[indexPath.row].firstTeamScore
@@ -140,8 +150,18 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upcomingCell", for: indexPath) as! UpcomingCollectionViewCell
             cell.uTeamFirst.makeRounded()
             cell.uTeamSec.makeRounded()
-        
-            if let imageUrlTeam1 = upComingEvents[indexPath.row].firstTeam?.teamBadge{
+            var firstTeam:String=""
+            var secTeam:String=""
+            for team in teamsArray{
+            if upComingEvents[indexPath.row].firstTeam?.teamName==team.teamName{
+                firstTeam=team.teamBadge!
+            }else if upComingEvents[indexPath.row].secondTeam?.teamName==team.teamName{
+                secTeam=team.teamBadge!
+            }
+        }
+        cell.uTeamFirst.sd_setImage(with: URL(string: firstTeam), completed: nil)
+        cell.uTeamSec.sd_setImage(with: URL(string: secTeam), completed: nil)
+           /* if let imageUrlTeam1 = upComingEvents[indexPath.row].firstTeam?.teamBadge{
                           cell.uTeamFirst!.sd_setImage(with: URL(string:imageUrlTeam1), placeholderImage: UIImage(named: "placeholder"))
             }else{
                 cell.uTeamFirst.image = UIImage(named: "team1")
@@ -151,7 +171,7 @@ class LeagueDetailsViewController: UIViewController,UICollectionViewDelegate,UIC
              cell.uTeamSec!.sd_setImage(with: URL(string:imageUrlTeam2), placeholderImage: UIImage(named: "placeholder"))
             }else{
                 cell.uTeamSec.image = UIImage(named: "team2")
-            }
+            }*/
         cell.firstTeamName.text = upComingEvents[indexPath.row].firstTeam?.teamName
         cell.secTeamName.text = upComingEvents[indexPath.row].secondTeam?.teamName
 
@@ -220,17 +240,23 @@ extension LeagueDetailsViewController : LeaguesDetailsControllerContract{
     func displayUpcomingEvents(listOfUpcomingEvents events: Array<EventEntity>) {
         upComingEvents = events
         self.upcomingCollection.reloadData()
+        self.lastTable.reloadData()
+        self.teamsCollection.reloadData()
 
     }
     
     func displayPastEvents(listOfPastEvents events: Array<EventEntity>) {
         
         pastEvents = events
+        self.upcomingCollection.reloadData()
         self.lastTable.reloadData()
+        self.teamsCollection.reloadData()
     }
     
     func displayTeams(listOfTeams teams: Array<TeamEntity>) {
             teamsArray = teams
+            self.upcomingCollection.reloadData()
+            self.lastTable.reloadData()
             self.teamsCollection.reloadData()
                             
     }
